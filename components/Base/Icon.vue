@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import 'iconify-icon';
+
 export interface BaseIconProps {
 	/**
 	 * Name of the Material Symbol to use.
@@ -27,30 +29,63 @@ const props = withDefaults(defineProps<BaseIconProps>(), {
 const opticalSize = computed(() => {
 	switch (props.size) {
 		case 'x-small':
-			return 16;
+			return '16';
 		case 'small':
-			return 20;
+			return '20';
 		case 'medium':
 		default:
-			return 24;
+			return '24';
 		case 'large':
-			return 48;
+			return '48';
 	}
+});
+
+const troubleIcons = [
+	'expand_more',
+	'expand_less',
+	'arrow_forward',
+	'arrow_back',
+	'security',
+	'api',
+	'avg_pace',
+	'support',
+	'check',
+	'apartment',
+	'autopay',
+	'cloudy',
+	'close',
+	'cruelty_free',
+	'horizontal_rule',
+	'menu_rounded',
+	'translate',
+];
+
+const iconName = computed(() => {
+	if (!props.name) return;
+	// Convert the icon coming from the API to the name of the icon component
+	// Directus uses Google Material Icons and the icon values are snake_case (e.g. "account_circle")
+	const prefix = 'material-symbols:';
+	// Change snake case to kebab case
+
+	const kebabCase = props.name.replace(/_/g, '-');
+	// If the icon is one of the trouble icons, do not add the suffix '-outline'
+	const iconName = prefix + kebabCase + (troubleIcons.includes(props.name) ? '' : '-outline');
+	return iconName;
 });
 
 const fontSize = computed(() => unref(opticalSize) + 'px');
 </script>
 
 <template>
-	<span class="base-icon" :class="size">{{ name }}</span>
+	<span class="base-icon" :class="size">
+		<iconify-icon :icon="iconName"></iconify-icon>
+	</span>
 </template>
 
 <style lang="scss" scoped>
 .base-icon {
 	--base-icon-color: var(--foreground);
-
 	color: var(--base-icon-color);
-	font-family: 'Material Symbols Outlined';
 	font-weight: normal;
 	font-style: normal;
 	display: inline-block;
@@ -61,9 +96,26 @@ const fontSize = computed(() => unref(opticalSize) + 'px');
 	white-space: nowrap;
 	direction: ltr;
 	font-size: v-bind(fontSize);
-	font-variation-settings:
-		'opsz' v-bind(opticalSize),
-		'wght' v-bind(weight);
 	user-select: none;
+}
+
+.x-small {
+	height: 16px;
+	width: 16px;
+}
+
+.small {
+	height: 20px;
+	width: 20px;
+}
+
+.medium {
+	height: 24px;
+	width: 24px;
+}
+
+.large {
+	height: 48px;
+	width: 48px;
 }
 </style>

@@ -55,9 +55,9 @@ if (!unref(person)) {
 	throw createError({ statusCode: 404, statusMessage: 'Team Member Not Found', fatal: true });
 }
 
-const ogProps = await getOgProps(`${directusUrl}/assets`, 'team', unref(person));
+const ogProps = getOgProps(`${directusUrl}/assets`, 'team', unref(person));
 
-defineOgImage(ogProps);
+defineOgImageComponent('OgImageDefault', ogProps);
 
 useHead({
 	title: computed(() => unref(person)?.name ?? null),
