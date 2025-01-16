@@ -73,8 +73,8 @@ export default defineNuxtConfig({
 
 	modules: [
 		'@vueuse/nuxt',
-		'@nuxt/image',
-		'@nuxt/fonts', // https://sitemap.nuxtjs.org/usage/sitemap
+		'@nuxt/image', // https://sitemap.nuxtjs.org/usage/sitemap
+		'@nuxt/fonts',
 		'@nuxt/scripts',
 		'@nuxtjs/sitemap',
 		'nuxt-og-image',
@@ -82,6 +82,7 @@ export default defineNuxtConfig({
 		'floating-vue/nuxt',
 		'nuxt-schema-org',
 		'@formkit/auto-animate/nuxt',
+		'@nuxthub/core',
 	],
 
 	// OG Image Configuration - https://nuxtseo.com/og-image/getting-started/installation
