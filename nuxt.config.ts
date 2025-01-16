@@ -53,6 +53,10 @@ export default defineNuxtConfig({
 		},
 	},
 
+	hub: {
+		cache: true,
+	},
+
 	typescript: {
 		typeCheck: true,
 	},
